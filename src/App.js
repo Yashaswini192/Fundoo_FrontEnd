@@ -1,23 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import SignIn from './pages/signIn/SignIn';
+import SignUp from './pages/singUp/SignUp';
+import MiniDrawer from './pages/dashBoard/MiniDrawer';
+import Header from './pages/dashBoard/Header';
+import Router from './routing/Router';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <SignIn/> */}
+        {/* <SignUp/>  */}
+       {/* <MiniDrawer/>  */}
+        {/* <Header/> */}
+        <Router/>
     </div>
   );
 }

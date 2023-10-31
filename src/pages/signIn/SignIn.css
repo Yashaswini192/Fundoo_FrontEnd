@@ -1,0 +1,111 @@
+
+.name{
+    display: flex;
+    justify-content: center;  
+    font-size: x-large;
+}
+
+
+
+#password{
+    text-align: start;
+    padding-left: 50px ;
+    color:rgb(67, 70, 241);
+    margin-top: 30px;
+}
+
+
+.login-container{
+    border: 1px solid black;
+    height:70vh;
+    width: 30vw;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    padding-top:50px;
+    margin-right: 40px;
+    
+}
+
+.text{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    color:rgb(78, 78, 242);
+}
+
+
+.loginButton{
+    background-color:rgb(71, 71, 227);
+   color:white;  
+}
+
+.a{
+    color:rgb(78, 78, 242);
+}
+
+.b{
+    color:red;
+}
+
+.c{
+    color:rgb(220, 220, 5);
+}
+
+.d{
+    color:blue;
+}
+
+.e{
+    color:rgb(3, 182, 3);
+}
+
+.f{
+    color:red;
+}
+
+input#outlined {
+    width: 300px;
+    height: 22px;
+}
+
+input#outlined-basic {
+    width: 300px;
+    height: 19px;
+}
+
+/* media queries */
+@media (max-width: 700px) {
+    .login-container {
+        width: 100%; 
+    }
+    input#outlined,
+    input#outlined-basic {
+        width: 100%;
+        height:100%;
+    }
+    .main-container {
+        height:80%;
+        width: 80%;
+        padding:20px;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 1200px) {
+    input#outlined,
+    input#outlined-basic {
+        width: 100%; 
+       height:100%;
+    }
+    .main-container {
+        height:90%;
+        width: 90%;
+        padding:20px;
+    }
+}
+
+

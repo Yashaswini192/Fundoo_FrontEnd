@@ -1,0 +1,12 @@
+.notethree{
+    height: 0px;
+   margin-top: 10px;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.noteGridView {
+ 
+  display: flex;
+  margin-left: 20px;
+}

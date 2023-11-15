@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { styled, useTheme, alpha} from '@mui/material/styles';
+import { useState } from 'react'
+import { styled, useTheme, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -24,6 +25,17 @@ import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import keepLogo from '../../assets/GoogleKeepNoteLogo.jpeg';
+import setShowNote from './DashBoard.jsx';
+import ViewListOutlinedIcon from '@mui/icons-material/ViewListOutlined';
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import {deleteNote} from '../../service/NoteService.js'
+import { useNavigate } from 'react-router-dom';
+import './MiniDrawer.css';
 
 const drawerWidth = 240;
 
@@ -57,7 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-  const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.black, 0.15),
@@ -109,30 +121,30 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
 
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '60ch',
-      },
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '60ch',
     },
-  }));
+  },
+}));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({ allNotes, setShowNote ,setViewType,viewType}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -143,6 +155,28 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  //const [isListView, setIsListView] = useState(true);
+
+  const toggleViewType = () => {
+    setViewType(prevView => (prevView === 'list' ? 'grid' : 'list'));
+  };
+
+  const [anchor, setAnchor] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchor(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchor(null);
+  };
+
+const nav = useNavigate();
+
+  const handleLogOut = () => {
+      nav('/');
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -159,36 +193,62 @@ export default function MiniDrawer() {
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
-              color:'Grey'
+              color: 'Grey'
             }}
           >
             <MenuIcon />
           </IconButton>
-          <img src={keepLogo} width={'40px'} height={'40px'}/>
+          <img src={keepLogo} width={'40px'} height={'40px'} />
           <Typography variant="h6" noWrap component="div" sx={{
-            color:'Grey'
+            color: 'Grey',marginRight: '8px'
           }}>
             Fundoo Note
           </Typography>
-          <Search sx={{
-                backgroundColor:'lightgrey',
-            }} 
-            >
+          <Search className='searchBar'>
             <SearchIconWrapper >
               <SearchIcon sx={{
-                color:'Grey'
-              }}/>
+                color: 'Grey'
+              }} />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
               sx={{
-                color:'Grey'
+                color: 'Grey'
               }}
             />
           </Search>
+          <IconButton sx={{
+            color: 'grey',
+            marginLeft: '250px'
+          }}>
+            <RefreshOutlinedIcon />
+          </IconButton>
+          <IconButton
+            sx={{
+              color: 'grey',
+              marginLeft: '5px',
+            }}
+            onClick={toggleViewType}
+          >
+            { viewType === 'list' ? <ViewListOutlinedIcon /> : <GridViewOutlinedIcon/> }
+          </IconButton>
+          <IconButton sx={{ color: 'grey', marginLeft: '5px' }}><SettingsOutlinedIcon /></IconButton>
+
+          <IconButton onClick={handleClick}>
+            <AccountCircleIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchor}
+            open={Boolean(anchor)}
+            onClose={handleClose}
+          >
+            <MenuItem>Profile</MenuItem>
+
+            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
-      </AppBar> 
+      </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
@@ -196,13 +256,26 @@ export default function MiniDrawer() {
           </IconButton>
         </DrawerHeader>
         <List>
-          {['Notes', 'Reminders','Edit Labels', 'Archive', 'Trash'].map((text, index) => (
+          {['Notes', 'Reminders', 'Edit Labels', 'Archive', 'Trash'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
+                }}
+
+                onClick={() => {
+                  if (text === 'Notes') {
+                    setShowNote(text);
+                    console.log(text)
+                  } else if (text === 'Archive') {
+                      setShowNote(text);
+                    } else if (text === 'Trash') {
+                      setShowNote(text);
+                    } else {
+                      allNotes();
+                    }                  
                 }}
               >
                 <ListItemIcon
@@ -212,21 +285,21 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 5 === 0 ? < LightbulbOutlinedIcon /> : 
+                  {index % 5 === 0 ? < LightbulbOutlinedIcon /> :
                     index % 5 === 1 ? <NotificationsNoneOutlinedIcon /> :
-                    index % 5 === 2 ? < ModeEditOutlineOutlinedIcon/> :
-                    index % 5 === 3 ? <ArchiveOutlinedIcon/> :
-                    <DeleteIcon/>}
+                      index % 5 === 2 ? < ModeEditOutlineOutlinedIcon /> :
+                        index % 5 === 3 ? <ArchiveOutlinedIcon /> :
+                          <DeleteIcon/>}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        
+
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />      
+        <DrawerHeader />
       </Box>
     </Box>
   );

@@ -12,7 +12,7 @@ function App() {
       {/* <SignIn/> */}
         {/* <SignUp/>  */}
        {/* <MiniDrawer/>  */}
-        {/* <Header/> */}
+        
         <Router/>
     </div>
   );

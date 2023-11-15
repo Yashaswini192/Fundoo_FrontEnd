@@ -1,0 +1,21 @@
+.description {
+    display: flex;
+    margin-top: 11px;
+    font-size: smaller;
+}
+
+.noteTitle{
+    display: flex;
+}
+
+.container {
+    padding: 10px;
+    /* margin-bottom: auto; */
+}
+
+.css-1a9333x>:not(style) {
+    margin: 8px;
+    width: 600px;
+    height: 94px;
+    /* margin-bottom: 5px; */
+}

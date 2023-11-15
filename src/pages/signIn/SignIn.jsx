@@ -73,11 +73,12 @@ function SignIn() {
     if(validateEmail === true && validatePassword === true){
       signin(data).then((result) => {
         console.log(result)
-        localStorage.setItem("Token", JSON.stringify(result.data.data));
+        localStorage.setItem("Token", result.data.data);
         // result.status(200).json({
         //   token : data
         // });
-        navigate("/MiniDrawer")
+        navigate("/DashBoard")
+        
       })
        // let response = await signin(data)
       console.log(regexvalue)
@@ -86,24 +87,24 @@ function SignIn() {
   }
 
   return (
-    <div class="form">
-    <div class="main-container">
-    <div class="login-container">
-        <div class="name">
-        <p class="a"><b>G</b></p>
-        <p class="b"><b>o</b></p>
-        <p class="c"><b>o</b></p>
-        <p class="d"><b>g</b></p>
-        <p class="e"><b>l</b></p>
-        <p class="f"><b>e</b></p>
+    <div className="form">
+    <div className="main-container">
+    <div className="login-container">
+        <div className="name">
+        <p className="a"><b>G</b></p>
+        <p className="b"><b>o</b></p>
+        <p className="c"><b>o</b></p>
+        <p className="d"><b>g</b></p>
+        <p className="e"><b>l</b></p>
+        <p className="f"><b>e</b></p>
         </div>
         <b>Login</b>
         <p>Use your Google Account</p>
         <div><TextField id="outlined-basic" label="Email or phone*" variant="outlined" onChange={changeValue.changeEmail} error={regexvalue.emailbox} helperText={regexvalue.printmsg}/></div><br/>
         <div><TextField id="outlined" label="Password*" variant="outlined" onChange={changeValue.changePassword} error={regexvalue.passwordbox} helperText={regexvalue.printmessage}/></div>
         <div id="password">forgot Password?</div>    
-            <div class="text">Create Account 
-                <button class="loginButton" onClick={validate}>Login</button>
+            <div className="text">Create Account 
+                <button className="loginButton" onClick={validate}>Login</button>
             </div>
         </div>
     </div>

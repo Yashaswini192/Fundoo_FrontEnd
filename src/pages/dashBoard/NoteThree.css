@@ -1,0 +1,25 @@
+ .main-Con{
+    margin-top: '0px';
+    /* background-color: aqua; */
+} 
+.MuiBox-root.css-1a9333x {
+    margin-top: 0px;
+    margin-bottom: 40px;
+    /* background-color: aqua; */
+}
+
+.deleteicons{
+    display: flex;
+    margin-left: '10px';
+}
+
+/* .pin{
+    margin-left: '20px';
+} */
+
+.noteTitle{
+    display: flex;
+    justify-content: space-between;
+}
+
+  

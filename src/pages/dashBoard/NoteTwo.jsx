@@ -45,19 +45,19 @@ function NoteTwo(props) {
         })
     }
 
-    const archiveNote = () => {
-        setValues(prevState => ({
-            ...prevState,
-            IsArchive: true
-        }))
-    }
+    // const archiveNote = () => {
+    //     setValues(prevState => ({
+    //         ...prevState,
+    //         IsArchive: true
+    //     }))
+    // }
 
-    const setArchiveNote = () => {
-        if(val.Title != ''){
-            archiveNote();
-           submitData();
-        }
-    }
+    // const setArchiveNote = () => {
+    //     if(val.Title != ''){
+    //         archiveNote();
+    //        submitData();
+    //     }
+    // }
 
     return (
         <div className='main-Con'>
@@ -151,7 +151,7 @@ function NoteTwo(props) {
                             <IconButton>
                                 <InsertPhotoOutlinedIcon />
                             </IconButton>
-                            <IconButton onClick={() =>{ setArchiveNote()}}>
+                            <IconButton>
                                 <ArchiveOutlinedIcon />
                             </IconButton>
                             <IconButton>

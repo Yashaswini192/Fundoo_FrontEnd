@@ -51,7 +51,11 @@ function DashBoard() {
 
   useEffect(() => {
     allNotes()
-  }, [getnote]);
+  }, [shownote]);
+
+  const autorefresh = () => {
+    allNotes();
+  }
 
   console.log(shownote)
   console.log(getnote)
@@ -63,7 +67,7 @@ function DashBoard() {
       <div>
         {
           state ? <TakeNote handleToggle={handleToggle} /> :
-            <NoteTwo handleToggle={handleToggle} allNotes={allNotes} />
+            <NoteTwo handleToggle={handleToggle} allNotes={allNotes} autorefresh={autorefresh} />
         }
 
       </div>
@@ -74,9 +78,9 @@ function DashBoard() {
           <div className={viewType === 'list' ? 'noteListView' : 'noteGridView'}>
             {getnote.map((data) => (
               viewType === 'list' ? (
-                <NoteThree key={data.noteId} data={data} allNotes={allNotes} permanentDelete={data.trash} />
+                <NoteThree key={data.noteId} data={data} allNotes={allNotes} permanentDelete={data.trash} autorefresh={autorefresh}/>
               ) : (<div className='notefour'>
-                <NoteFour key={data.noteId} data={data} allNotes={allNotes} permanentDelete={data.trash} />
+                <NoteFour key={data.noteId} data={data} allNotes={allNotes} permanentDelete={data.trash} autorefresh={autorefresh} />
               </div>
               )
             ))}
